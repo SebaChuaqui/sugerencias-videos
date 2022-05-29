@@ -8,7 +8,7 @@ let modulo = (() => {
 
     // Métodos Privados
 
-    function privadoMostrarMultimedia(urlPrivada, idPrivada) {
+    function privadoMostrarVideos(urlPrivada, idPrivada) {
         if (idPrivada == 'musica') {
             contenedor = document.querySelector('#musica > iframe');
             contenedor.setAttribute('src', urlPrivada);
@@ -22,8 +22,8 @@ let modulo = (() => {
     }
     // API Pública
     return {
-        publicoMostrarMultimedia: function (urlPublica, idPublico) {
-            privadoMostrarMultimedia(urlPublica, idPublico);
+        publicoMostrarVideos: function (urlPublica, idPublico) {
+            privadoMostrarVideos(urlPublica, idPublico);
         }
     }
 });
