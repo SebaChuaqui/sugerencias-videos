@@ -54,5 +54,27 @@ class Videos {
     // Clase Hija
 
 class Reproduccion extends Videos{
+
+    constructor(url,id){
+        super(url);
+        this._id = id;
+    }
     
+    get id(){
+        return this._id;
+    }
+
+    // Método que llama a la función pública de la IIFE
+
+    playVideo(){
+        modulo.publicoMostrarVideos(this.url, this.id);
+    }
+
+    // Método que modifica el tiempo de inicio
+
+    setComienzo(tiempo_inicial){
+        this.url = `${this.url}?start=${tiempo_inicial}`;
+    }
+
 }
+
