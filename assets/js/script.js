@@ -1,80 +1,77 @@
-// Patrón de Módulo
-
 let modulo = (() => {
 
-    // Variables Privadas y Propiedades
+    let container;
 
-    let contenedor;
-
-    // Métodos Privados
-
-    function privadoMostrarVideos(urlPrivada, idPrivada) {
-        if (idPrivada == 'musica') {
-            contenedor = document.querySelector('#musica > iframe');
-            contenedor.setAttribute('src', urlPrivada);
-        } else if (idPrivada == 'peliculas') {
-            contenedor = document.querySelector('#pelicula > iframe');
-            contenedor.setAttribute('src', urlPrivada);
-        } else if (idPrivada == 'series') {
-            contenedor = document.querySelector('#series > iframe');
-            contenedor.setAttribute('src', idPrivada);
+    function privateMostrarMultimedia(urlPrivada, idPrivado) {
+        if (idPrivado == 'musica') {
+            container = document.querySelector('#musica > iframe');
+            container.setAttribute('src', urlPrivada);
+        } else if (idPrivado == 'peliculas') {
+            container = document.querySelector('#peliculas > iframe');
+            container.setAttribute('src', urlPrivada);
+        } else if (idPrivado == 'series') {
+            container = document.querySelector('#series > iframe');
+            container.setAttribute('src', urlPrivada);
         }
     }
-    // API Pública
+
     return {
-        publicoMostrarVideos: function (urlPublica, idPublico) {
-            privadoMostrarVideos(urlPublica, idPublico);
-        }
+        publicMostrarMultimedia: function (urlPublica, idPublico) {
+            privateMostrarMultimedia(urlPublica, idPublico);
+        },
     }
-});
+})();
 
-// Clase Padre protegiendo el atributo con closures
-
-class Videos {
+class Multimedia {
     constructor(url) {
-        this._url = url;
+        let _url = url;
         this.getUrl = () => _url;
-        this.setUrl = (new_url) => _url = new_url;
+        this.setUrl = (nueva_url) => _url = nueva_url;
     }
 
     get url() {
         return this.getUrl();
     }
 
-    set url(new_url) {
-        this.setUrl(new_url);
+    set url(nueva_url) {
+        this.setUrl(nueva_url);
     }
 
-    setComienzo() {
-        return 'Método para realizar un cambio en la URL del Video'
+    setInicio() {
+        return 'Este método es para realizar un cambio en la URL del video';
     }
-
 }
 
-    // Clase Hija
-
-class Reproduccion extends Videos{
-
-    constructor(url,id){
+class Video extends Multimedia {
+    constructor(url, id) {
         super(url);
         this._id = id;
     }
-    
-    get id(){
+
+    get id() {
         return this._id;
     }
 
-    // Método que llama a la función pública de la IIFE
-
-    playVideo(){
-        modulo.publicoMostrarVideos(this.url, this.id);
+    playMultimedia() {
+        modulo.publicMostrarMultimedia(this.url, this.id);
     }
 
-    // Método que modifica el tiempo de inicio
-
-    setComienzo(tiempo_inicial){
-        this.url = `${this.url}?start=${tiempo_inicial}`;
+    setInicio(tiempo_inicio) {
+        this.url = `${this.url}?start=${tiempo_inicio}`;
     }
-
 }
 
+let musica1 = new Video('https://www.youtube.com/embed/fJ9rUzIMcZQ', 'musica');
+let pelicula1 = new Video('https://www.youtube.com/embed/2lJ2F7VeM1s', 'peliculas');
+let serie1 = new Video('https://www.youtube.com/embed/bNMGev-SNMw', 'series');
+
+serie1.setInicio(60);
+
+let btn1 = document.querySelector('#headingOne > h2 > button');
+btn1.addEventListener('click', musica1.playMultimedia());
+
+let btn2 = document.querySelector('#headingTwo > h2 > button');
+btn2.addEventListener('click', pelicula1.playMultimedia());
+
+let btn3 = document.querySelector('#headingThree > h2 > button');
+btn3.addEventListener('click', serie1.playMultimedia());
