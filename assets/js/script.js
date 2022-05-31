@@ -65,7 +65,7 @@ let musica1 = new Video('https://www.youtube.com/embed/fJ9rUzIMcZQ', 'musica');
 let pelicula1 = new Video('https://www.youtube.com/embed/2lJ2F7VeM1s', 'peliculas');
 let serie1 = new Video('https://www.youtube.com/embed/bNMGev-SNMw', 'series');
 
-serie1.setInicio(60);
+serie1.setInicio(85);
 
 let btn1 = document.querySelector('#headingOne > h2 > button');
 btn1.addEventListener('click', musica1.playMultimedia());
